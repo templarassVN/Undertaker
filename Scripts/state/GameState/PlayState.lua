@@ -1,11 +1,23 @@
 PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
-    local def = {room = Room(),
+    gSounds['bg']:setLooping(true)
+    gSounds['bg']:play()
+
+    local room_walls = {Wall(8,1),Wall(7,1)}
+    local Room = Room(4,room_walls)
+    local Key = Key({grid_x = 7, grid_y = 7})
+    local Chest = Chest({grid_x = 6,grid_y = 7})
+    local objects = {Object({grid_x = 3, grid_y = 3}),Object({grid_x = 4, grid_y = 3})}
+    local npcs = {NPC({grid_x = 2, grid_y = 3})}
+    local traps = {Trap({grid_x = 1, grid_y = 3, isActive = true, types = 0})}
+    local def = {room = Room,
                 player = Player({grid_x = 1, grid_y = 1}),
-                object = Object({grid_x = 3, grid_y = 3}),
-                npc = NPC({grid_x = 2, grid_y = 3}),
-                trap = Trap({grid_x = 1, grid_y = 3, isActive = true, types = 0})
+                objects = objects,
+                npcs = npcs,
+                traps = traps,
+                key = Key,
+                chest = Chest
                 }
     self._Level = Level(def)
     -- self._Room = Room()

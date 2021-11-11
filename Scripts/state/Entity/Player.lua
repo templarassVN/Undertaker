@@ -1,85 +1,153 @@
 Player = Class{__includes = Entity}
 
-function Player:update(dt,room,object,npc,trap)
+function Player:update(dt,room,objects,npcs,traps,key,chest)
 	-- body
 	self:Movement(dt)
-	
+	if(key._grid_x == self._grid_x and key._grid_y == self._grid_y) then
+		key:selfDestruct(room)
+		self._haveKey = true
+	end
+
 	if(Entity.ALLOW_MOVE == true) then
+		
 		if love.keyboard.wasPressed('right') and self._Dx == 0 and self._Dy == 0 then
+			gSounds['move']:play()
 			local tile = room:getTile(self._grid_x - 1,self._grid_y)
-			if(tile ~= nil and tile.avail == true) then
-	    		self:hitRight( room,trap )
-	    	end
+			for i,trap in pairs(traps) do
+				if(tile ~= nil and tile.avail == true) then
+		    		self:hitRight( room,trap )
+		    	end
+		    end
+
 			self:moveRight(room)
-			if(self._Dx == 0) then
-				self:belowTrap(room,trap )
+
+			if(self._haveKey == true and chest._grid_x == self._grid_x + 1 and chest._grid_y == self._grid_y) then
+				chest:selfDestruct(room)
 			end
-			if(self._grid_x<MAP_WIDTH) then
-				room:decreaseMove()
-				trap:updateStt()
+			-- if(key._grid_x == self._grid_x and key._grid_y == self._grid_y) then
+			-- 	key:selfDestruct()
+			-- end
+
+			for i,trap in pairs(traps) do
+				if(self._Dx == 0) then
+					self:belowTrap(room,trap )
+				end
+				if(self._grid_x<MAP_WIDTH) then
+					room:decreaseMove()
+					trap:updateStt()
+				end
 			end
 
-			self:pushRight(room,object)
-			self:slainRight(room,npc)
+			for i,object in pairs(objects) do
+        		self:pushRight(room,object)
+    		end
+			
+			for i,npc in pairs(npcs) do
+				self:slainRight(room,npc)
+			end
 
 			
 	    end
 	    if love.keyboard.wasPressed('left') and self._Dx == 0 and self._Dy == 0 then
+	    	gSounds['move']:play()
 	    	local tile = room:getTile(self._grid_x - 1,self._grid_y)
-			if(tile ~= nil and tile.avail == true) then
-	    		self:hitLeft( room,trap )
+	    	for i,trap in pairs(traps) do
+				if(tile ~= nil and tile.avail == true) then
+	    			self:hitLeft( room,trap )
+	    		end
 	    	end
+
 	    	self:moveLeft(room)
-			if(self._Dx == 0) then
-				self:belowTrap(room,trap )
-			end
-			if(self._grid_x>1) then
-				room:decreaseMove()
-				trap:updateStt()
+
+	    	if(self._haveKey == true and chest._grid_x == self._grid_x - 1 and chest._grid_y == self._grid_y) then
+				chest:selfDestruct(room)
 			end
 
-			
-			self:pushLeft(room,object)
-			self:slainLeft(room,npc)
+	    	for i,trap in pairs(traps) do
+				if(self._Dx == 0) then
+					self:belowTrap(room,trap )
+				end
+				if(self._grid_x>1) then
+					room:decreaseMove()
+					trap:updateStt()
+				end
+			end
+
+			for i,object in pairs(objects) do
+				self:pushLeft(room,object)
+			end
+
+			for i,npc in pairs(npcs) do
+				self:slainLeft(room,npc)
+			end
 	    end
+
 	    if love.keyboard.wasPressed('up') and self._Dx == 0 and self._Dy == 0 then
+	    	gSounds['move']:play()
 	    	local tile = room:getTile(self._grid_x ,self._grid_y - 1)
-			if(tile ~= nil and tile.avail == true) then
-				self:hitUp( room,trap )
+	    	for i,trap in pairs(traps) do
+				if(tile ~= nil and tile.avail == true) then
+					self:hitUp( room,trap )
+				end
 			end
+
 			self:moveUp(room)
-			if(self._Dy == 0) then
-				self:belowTrap(room,trap )
+
+			if(self._haveKey == true and chest._grid_x == self._grid_x and chest._grid_y == self._grid_y - 1) then
+				chest:selfDestruct(room)
 			end
-			if(self._grid_y>1) then
-				room:decreaseMove()
-				trap:updateStt()
+
+			for i,trap in pairs(traps) do
+				if(self._Dy == 0) then
+					self:belowTrap(room,trap )
+				end
+				if(self._grid_y>1) then
+					room:decreaseMove()
+					trap:updateStt()
+				end
 			end
 			
-			self:pushUp(room,object)
-			self:slainUp(room,npc)
-			
+			for i,object in pairs(objects) do
+				self:pushUp(room,object)
+			end
+
+			for i,npc in pairs(npcs) do
+				self:slainUp(room,npc)
+			end		
 			
 	    end
 	    if love.keyboard.wasPressed('down') and self._Dx == 0 and self._Dy == 0 then
-	    	
-
+	    	gSounds['move']:play()
 			local tile = room:getTile(self._grid_x ,self._grid_y + 1)
-			if(tile ~= nil and tile.avail == true) then
-				self:hitDown( room,trap )
-			end
-			self:moveDown(room)
-			if(self._Dy == 0) then
-				self:belowTrap(room,trap )
-			end
-			if(self._grid_y<MAP_HEIGHT) then
-				room:decreaseMove()
-				trap:updateStt()
+			for i,trap in pairs(traps) do
+				if(tile ~= nil and tile.avail == true) then
+					self:hitDown( room,trap )
+				end
 			end
 
-			self:pushDown(room,object)
-			self:slainDown(room,npc)
-			
+			self:moveDown(room)
+
+			if(self._haveKey == true and chest._grid_x == self._grid_x and chest._grid_y == self._grid_y + 1) then
+				chest:selfDestruct(room)
+			end
+
+			for i,trap in pairs(traps) do
+				if(self._Dy == 0) then
+					self:belowTrap(room,trap )
+				end
+				if(self._grid_y<MAP_HEIGHT) then
+					room:decreaseMove()
+					trap:updateStt()
+				end
+			end
+
+			for i,object in pairs(objects) do
+				self:pushDown(room,object)
+			end
+
+			for i,npc in pairs(npcs) do
+				self:slainDown(room,npc)
+			end
 	    end
 	end
 end
@@ -89,7 +157,7 @@ function Player:render( ... )
 	love.graphics.draw(gTextures['character-walk'], gFrames['character-walk'][2],
                  self._x + 5, self._y -  8 )
 	-- love.graphics.print(self._Dx,0,15)
-	-- love.graphics.print(old_grid_X,0,30)
+	love.graphics.print(Entity.ALLOW_MOVE == true and '1' or '0',0,30)
 end
 
 function Player:hitTrap(room,trap)

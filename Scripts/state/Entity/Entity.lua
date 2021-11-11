@@ -11,6 +11,7 @@ function Entity:init(def)
 	self._Dx = 0
 	self._Dy = 0
 	self._alive = true
+	self._haveKey = false
 end
 
 
