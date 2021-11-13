@@ -9,7 +9,7 @@ function PlayState:init()
     local Key = Key({grid_x = 7, grid_y = 7})
     local Chest = Chest({grid_x = 6,grid_y = 7})
     local objects = {Object({grid_x = 3, grid_y = 3}),Object({grid_x = 4, grid_y = 3})}
-    local npcs = {NPC({grid_x = 2, grid_y = 3})}
+    local npcs = {NPC({grid_x = 2, grid_y = 3},2)}
     local traps = {Trap({grid_x = 1, grid_y = 3, isActive = true, types = 0})}
     local def = {room = Room,
                 player = Player({grid_x = 1, grid_y = 1}),

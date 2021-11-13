@@ -1,9 +1,15 @@
 NPC = Class{__includes = Entity}
 
+function NPC:init(def,types)
+	-- body
+	Entity.init(self,def)
+	self.types = types
+end
+
 function NPC:render( ... )
 	-- body
 	if (self._alive == true) then
-	    love.graphics.draw(gTextures['npc'], gFrames['npc'][55],
+	    love.graphics.draw(gTextures['npc'], gFrames['npc'][NPC_SPRITE[self.types]],
 	         self._x + 5,self._y + 4 )
 	end
 end
