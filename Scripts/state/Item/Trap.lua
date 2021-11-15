@@ -1,11 +1,8 @@
-Trap = Class{}
+Trap = Class{__includes = Item}
 
 function Trap:init(def)
 	-- body
-	self._grid_x = def.grid_x
-	self._grid_y = def.grid_y
-	self._x = self._grid_x*TILE_SIZE
-	self._y = self._grid_y*TILE_SIZE 
+	Item.init(self,def)
 	self._isActive = def.isActive
 	self._types = def.types
 end
@@ -23,6 +20,7 @@ end
 
 function Trap:render()
 	-- body
+	
 	if(self._isActive == true) then
 		index = TRAP_FLOORS[2]
 	else
@@ -30,7 +28,7 @@ function Trap:render()
 	end
 	love.graphics.draw(gTextures['trap'], gFrames['trap'][index],
          self._x+5,self._y + 4 )
-	-- love.graphics.print(self._types == 0 and '1' or '0',0,15)
+	-- -- love.graphics.print(self._types == 0 and '1' or '0',0,15)
 end
 
 

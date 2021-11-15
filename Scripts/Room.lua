@@ -2,7 +2,7 @@ Room = Class{}
 
 function Room:init(moveremain, walls )
 	-- body
-    self._moveremain = 4
+    self._moveremain = moveremain
 	self.width = MAP_WIDTH
 	self.height = MAP_HEIGHT
 	self.tiles = {}
@@ -29,8 +29,8 @@ end
 
 function Room:render( ... )
 	-- body
-    
-    love.graphics.print(self.tiles[3][1].avail == true and '1' or '0', 0,7)
+    love.graphics.print("Move: " .. tostring(self._moveremain))
+    -- love.graphics.print(self.tiles[3][1].avail == true and '1' or '0', 0,7)
     -- for y = 1, 4 do
     --     if y == 1 then
     --         for x = 1, self.width do

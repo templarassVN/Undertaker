@@ -1,8 +1,8 @@
-NPC = Class{__includes = Entity}
+NPC = Class{__includes = Item}
 
-function NPC:init(def,types)
+function NPC:init(def,types,alive)
 	-- body
-	Entity.init(self,def)
+	Item.init(self,def)
 	self.types = types
 end
 

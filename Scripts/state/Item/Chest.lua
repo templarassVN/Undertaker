@@ -1,4 +1,4 @@
-Chest = Class{__includes = Entity}
+Chest = Class{__includes = Item}
 
 function Chest:render( ... )
 	-- body

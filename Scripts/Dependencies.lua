@@ -4,15 +4,21 @@ push = require 'lib/push'
 require 'Scripts/Util'
 require 'Scripts/Room'
 require 'Scripts/constant'
-require 'Scripts/Trap'
-require 'Scripts/Wall'
+
 
 require 'Scripts/state/Entity/Entity'
 require 'Scripts/state/Entity/Object'
-require 'Scripts/state/Entity/NPC'
 require 'Scripts/state/Entity/Player'
-require 'Scripts/state/Entity/Key'
-require 'Scripts/state/Entity/Chest'
+
+require 'Scripts/state/Item/Item'
+require 'Scripts/state/Item/Trap'
+require 'Scripts/state/Item/Wall'
+require 'Scripts/state/Item/Key'
+require 'Scripts/state/Item/Chest'
+require 'Scripts/state/Item/NPC'
+require 'Scripts/state/Item/NPC'
+
+
 require 'Scripts/Level'
 
 require 'Scripts/state/BaseState'
@@ -58,5 +64,7 @@ gSounds = {
     ['chest'] = love.audio.newSource('sounds/chest_destroyed.wav',"static"),
     ['key'] = love.audio.newSource('sounds/Key.wav',"static"),
     ['move'] = love.audio.newSource('sounds/Move.wav',"static"),
-    ['bg'] = love.audio.newSource('sounds/Space Rider.wav',"static")
+    ['bg'] = love.audio.newSource('sounds/Twin-Musicom-64-Sundays.mp3',"stream"),
+    ['kill'] = love.audio.newSource('sounds/kill.mp3',"stream"),
+    ['dead'] = love.audio.newSource('sounds/Death.mp3',"stream")
 }

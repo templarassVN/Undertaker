@@ -1,4 +1,4 @@
-Key = Class{__includes = Entity}
+Key = Class{__includes = Item}
 
 function Key:render()
 	-- body
